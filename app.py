@@ -56,4 +56,4 @@ if __name__ == "__main__":
     # If I enable `debug=True` I get
     # `KeyError: 'getpwuid(): uid not found: 1000060000'` errors
     # from OpenShift.
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=4000)

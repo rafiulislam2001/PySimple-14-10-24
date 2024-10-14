@@ -1,22 +1,17 @@
-ARG from_image=python:3.10.1-alpine3.15
-FROM ${from_image}
+FROM python:3.10.1-alpine3.15
 
-# Force the binary layer of the stdout and stderr streams
-# to be unbuffered
-ENV PYTHONUNBUFFERED 1
-
-# Create a /data directory
-WORKDIR /data
-# Set the working directory to /app
 WORKDIR /app
-# Copy the current directory contents into /app
-ADD . /app
-# Make port 8080 available to the world
-EXPOSE 8080
 
-# Install requirements
-# and change file ownership
+# Install dependencies
+ADD requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
-# Run app.py when the container launches
+# Ensure data directory exists for PickleDB
+RUN mkdir -p /data
+
+# Add your app
+ADD . /app
+
+EXPOSE 4000
+
 CMD ["python", "app.py"]
